@@ -31,4 +31,25 @@ describe('API Testing for reqres.in - Users API', () => {
             expect(response.body).to.have.nested.property('data[0].avatar', 'https://reqres.in/img/faces/7-image.jpg');
         })
     });
+
+    it('The response firstName, lastName, & email should be exported to csv file', () => {
+        cy.request({
+            method: 'GET',
+            url: `https://reqres.in/api/users?page=2`,
+
+        })
+        .then((response)=>{
+            const data = [["First Name", "Last Name", "Email"]];
+
+            for (let i = 0; i < response.body.data.length; i++) {
+                data.push([
+                    response.body.data[i].first_name,
+                    response.body.data[i].last_name,
+                    response.body.data[i].email
+                ]);
+            }
+            const csvContent = data.map((row) => row.join(",")).join("\n");
+            cy.writeFile("cypress/fixtures/data.csv", csvContent);
+        })
+    });
 });
