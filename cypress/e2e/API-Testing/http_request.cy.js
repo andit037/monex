@@ -2,7 +2,7 @@
 
 describe('API Testing for reqres.in - Users API', () => {
     
-    it('Get User list on Page 2', () => {
+    it('Get User list on Page 2', () => { // Task no.1
         cy.request({
             method: 'GET',
             url: `https://reqres.in/api/users?page=2`,
@@ -32,7 +32,7 @@ describe('API Testing for reqres.in - Users API', () => {
         })
     });
 
-    it('The response firstName, lastName, & email should be exported to csv file', () => {
+    it('The response firstName, lastName, & email should be exported to csv file', () => { // Task no.4
         cy.request({
             method: 'GET',
             url: `https://reqres.in/api/users?page=2`,
